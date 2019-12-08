@@ -102,6 +102,9 @@ class RefrigeranteController extends Controller
     
     public function destroy($id)
     {
-        //
+        $refrigerante = Refrigerante::find($id);
+        $refrigerante->delete();
+        return redirect('/refrigerante')->with('success', 'Deletado com Sucesso!');
+   
     }
 }

@@ -235,6 +235,35 @@
                     </div>
                     <!-- Fim do Modal Editar -->
 
+
+                    <!-- Inicio Modal Deletar -->
+                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exempleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exempleModalLabel">Deletar Refrigerante</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form method="POST" action="/refrigerante" id="deleForm">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <div class="modal-body">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <p>Tem certeza que deseja deletar?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-danger">Sim! Deletar</button>
+                                </div>
+                            </form>
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fim do Modal Deletar -->
+
                     <br>
                                     
                     <table id="datatable" class="table ">
@@ -261,8 +290,13 @@
                                 <td>{{ $refrigerantes->valor }}</td>
                                 <td>{{ $refrigerantes->quantidade }}</td>
                                 <td>
-                                    <a href="" class="btn btn-success">Editar</a>
-                                    <a href="" class="btn btn-danger">Deletar</a>
+                                    <button type="button" class="btn btn-success edit" data-toggle="modal" data-target="#editModal">
+                                        Editar
+                                    </button>
+                                    <button type="button" class="btn btn-danger delete" data-toggle="modal" data-target="#deleteModal">
+                                        Deletar
+                                    </button>
+                                    
                                 </td>
                             </tr>
                             @endforeach
@@ -308,6 +342,28 @@
                             });
 
                             // Fim da função de edição
+
+                            //Codigo para deletar
+                            table.on('click','.delete', function(){
+
+                                $tr =$(this).closest('tr');
+                                if($($tr).hasClass('child')){
+                                    $tr = $tr.prev('.parent');
+                                }
+
+                                var data = table.row($tr).data();
+                                console.log(data);
+
+                                //$('#id').val(data[0]);
+                                
+
+                                $('deleteForm').attr('action', '/refrigerante/'+data[0]);
+                                $('deleteModal').modal('show');
+
+                                });
+
+                                // Fim da função de delete
+
                         });
 
                     </script>

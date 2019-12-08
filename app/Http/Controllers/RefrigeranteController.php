@@ -28,14 +28,35 @@ class RefrigeranteController extends Controller
     
     public function store(Request $request)
     {
-        Refrigerante::create([
+        /*Refrigerante::create([
             'marca'=> $request->marca,
             'tipo'=>$request->tipo,
             'sabor'=>$request->sabor,
             'litragem'=>$request->litragem,
             'valor'=>$request->valor,
             'quantidade'=>$request->quantidade
+        ]);*/
+
+        $this->validate($request,[
+            'marca' => 'required',
+            'tipo' => 'required',
+            'sabor' => 'required',
+            'litragem' => 'required',
+            'valor' => 'required',
+            'quantidade' => 'required',
         ]);
+
+        $refrigerante = new Refrigerante;
+
+        $refrigerante->marca = $request->input('marca');
+        $refrigerante->tipo = $request->input('tipo');
+        $refrigerante->sabor = $request->input('sabor');
+        $refrigerante->litragem = $request->input('litragem');
+        $refrigerante->valor = $request->input('valor');
+        $refrigerante->quantidade = $request->input('quantidade');
+        
+        $refrigerante->save();
+
         return redirect('/refrigerante')->with('success', 'Dados Salvos');
     }
 
@@ -54,7 +75,28 @@ class RefrigeranteController extends Controller
     
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'marca' => 'required',
+            'tipo' => 'required',
+            'sabor' => 'required',
+            'litragem' => 'required',
+            'valor' => 'required',
+            'quantidade' => 'required',
+        ]);
+
+        $refrigerante = Refrigerante::find($id);
+
+        $refrigerante->marca = $request->input('marca');
+        $refrigerante->tipo = $request->input('tipo');
+        $refrigerante->sabor = $request->input('sabor');
+        $refrigerante->litragem = $request->input('litragem');
+        $refrigerante->valor = $request->input('valor');
+        $refrigerante->quantidade = $request->input('quantidade');
+        
+        $refrigerante->save();
+
+        return redirect('/refrigerante')->with('success', 'Dados Atualizados');
+   
     }
 
     

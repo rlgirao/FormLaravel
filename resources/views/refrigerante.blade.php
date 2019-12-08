@@ -16,9 +16,6 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -167,11 +164,12 @@
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form method="POST" action="/refrigerante" id="editForm">
+                            <form method="POST" action="{{ (route('refrigerante.update', 'test')) }}" id="editForm">
                                 {{ csrf_field() }}
-                                {{ method_field('PUT') }}
+                                {{ method_field('PATCH') }}
                                 <div class="modal-body">
                                     <div class="form-group">
+                                        <input type="hidden" name="refrigerante_id" id="refrigeranteid">
                                         <label for="marca">Marca</label>
                                         <input type="text" name="marca" class="form-control" id="marca" placeholder="Marca">
                                     </div>
@@ -246,7 +244,7 @@
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form method="POST" action="/refrigerante" id="deleForm">
+                            <form method="POST" action="{{ route('refrigerante.destroy','id') }}" id="deleteForm">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                                 <div class="modal-body">
@@ -264,8 +262,7 @@
                     </div>
                     <!-- Fim do Modal Deletar -->
 
-                    <br>
-                                    
+                    <br>               
                     <table id="datatable" class="table ">
                         <thead class="thead-dark">
                             <tr>
@@ -290,7 +287,13 @@
                                 <td>{{ $refrigerantes->valor }}</td>
                                 <td>{{ $refrigerantes->quantidade }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-success edit" data-toggle="modal" data-target="#editModal">
+                                    <button type="button" class="btn btn-success edit" data-id="{{ $refrigerantes->id }}"
+                                                                                       data-marca="{{ $refrigerantes->marca }}"
+                                                                                       data-tipo="{{ $refrigerantes->tipo }}"
+                                                                                       data-sabor="{{ $refrigerantes->sabor }}"
+                                                                                       data-litragem="{{ $refrigerantes->litragem }}"
+                                                                                       data-valor="{{ $refrigerantes->valor }}"
+                                                                                       data-quantidade="{{ $refrigerantes->quantidade }}" data-toggle="modal" data-target="#editModal">
                                         Editar
                                     </button>
                                     <button type="button" class="btn btn-danger delete" data-toggle="modal" data-target="#deleteModal">
@@ -317,53 +320,26 @@
                         $(document).ready(function(){
 
                             var table = $('#datatable').DataTable();
+                        });
 
-                            //Codigo para editar tabela
-                            table.on('click','.edit', function(){
+                        $('#editModal').on('show.bs.modal', function (event) {
+                            var button = $(event.relatedTarget);
+                            var id = button.data('id');
+                            var marca = button.data('marca');
+                            var tipo = button.data('tipo');
+                            var sabor = button.data('sabor');
+                            var litragem = button.data('litragem');
+                            var valor = button.data('valor');
+                            var quantidade = button.data('quantidade');
 
-                                $tr =$(this).closest('tr');
-                                if($($tr).hasClass('child')){
-                                    $tr = $tr.prev('.parent');
-                                }
-
-                                var data = table.row($tr).data();
-                                console.log(data);
-
-                                $('#marca').val(data[1]);
-                                $('#tipo').val(data[2]);
-                                $('#sabor').val(data[3]);
-                                $('#litragem').val(data[4]);
-                                $('#valor').val(data[5]);
-                                $('#quantidade').val(data[6]);
-
-                                $('editForm').attr('action', '/refrigerante/'+data[0]);
-                                $('editModal').modal('show');
-
-                            });
-
-                            // Fim da função de edição
-
-                            //Codigo para deletar
-                            table.on('click','.delete', function(){
-
-                                $tr =$(this).closest('tr');
-                                if($($tr).hasClass('child')){
-                                    $tr = $tr.prev('.parent');
-                                }
-
-                                var data = table.row($tr).data();
-                                console.log(data);
-
-                                //$('#id').val(data[0]);
-                                
-
-                                $('deleteForm').attr('action', '/refrigerante/'+data[0]);
-                                $('deleteModal').modal('show');
-
-                                });
-
-                                // Fim da função de delete
-
+                            var modal = $(this);
+                            modal.find('.modal-body #refrigeranteid').val(id);
+                            modal.find('.modal-body #marca').val(marca);
+                            modal.find('.modal-body #tipo').val(tipo);
+                            modal.find('.modal-body #sabor').val(sabor);
+                            modal.find('.modal-body #litragem').val(litragem);
+                            modal.find('.modal-body #valor').val(valor);
+                            modal.find('.modal-body #quantidade').val(quantidade);
                         });
 
                     </script>

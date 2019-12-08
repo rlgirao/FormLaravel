@@ -15,7 +15,7 @@ class RefrigeranteController extends Controller
     public function index()
     {
         $refrigerante = Refrigerante::all();
-        return view('home')->with('refrigerante', $refrigerante);
+        return view('refrigerante')->with('refrigerante', $refrigerante);
     }
 
     /**

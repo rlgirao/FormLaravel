@@ -217,8 +217,6 @@
 
 
     <script type="text/javascript">
-        var $  = require( 'jquery' );
-        var dt = require( 'datatables.net' )();
 
         $(document).ready(function(){
 
@@ -252,5 +250,6 @@
 
     </script>
 
+        
 </div>
 @endsection

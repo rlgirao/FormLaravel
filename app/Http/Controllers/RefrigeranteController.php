@@ -82,4 +82,11 @@ class RefrigeranteController extends Controller
         $refrigerante->delete($request->all());
         return redirect('/refrigerante')->with('Seccess','Dados deletados!');
     }
+
+    public function delete(Request $request)
+    {
+        $refrigerante = $request->input('delmulti');
+        Refrigerante::whereIn('id', $refrigerante)->delete();
+        return redirect('/refrigerante')->with('Seccess','Dados deletados!');
+    }
 }

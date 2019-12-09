@@ -325,49 +325,63 @@
                     </div>
                     <!-- Fim do Modal Deletar -->
 
-                    <br>               
-                    <table id="datatable" class="table ">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Marca</th>
-                                <th scope="col">Tipo</th>
-                                <th scope="col">Sabor</th>
-                                <th scope="col">Litragem</th>
-                                <th scope="col">Valor</th>
-                                <th scope="col">Quantidade</th>
-                                <th scope="col">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($refrigerante as $refrigerantes)
-                            <tr>
-                                <th>{{ $refrigerantes->id }}</th>
-                                <td>{{ $refrigerantes->marca }}</td>
-                                <td>{{ $refrigerantes->tipo }}</td>
-                                <td>{{ $refrigerantes->sabor }}</td>
-                                <td>{{ $refrigerantes->litragem }}</td>
-                                <td>{{ $refrigerantes->valor }}</td>
-                                <td>{{ $refrigerantes->quantidade }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-success edit" data-id="{{ $refrigerantes->id }}"
-                                                                                       data-marca="{{ $refrigerantes->marca }}"
-                                                                                       data-tipo="{{ $refrigerantes->tipo }}"
-                                                                                       data-sabor="{{ $refrigerantes->sabor }}"
-                                                                                       data-litragem="{{ $refrigerantes->litragem }}"
-                                                                                       data-valor="{{ $refrigerantes->valor }}"
-                                                                                       data-quantidade="{{ $refrigerantes->quantidade }}" data-toggle="modal" data-target="#editModal">
-                                        Editar
-                                    </button>
-                                    <button type="button" class="btn btn-danger delete" data-id="{{ $refrigerantes->id }}" data-toggle="modal" data-target="#deleteModal">
-                                        Deletar
-                                    </button>
-                                    
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                        </table>    
+                    <br>
+                    <form action="{{ route('refrigerante.delete') }}" method="POST">
+                        {{ csrf_field() }}
+                        <div class="table-responsive">
+                            <table id="datatable" class="table ">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">Marca</th>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Sabor</th>
+                                        <th scope="col">Litragem</th>
+                                        <th scope="col">Valor</th>
+                                        <th scope="col">Quantidade</th>
+                                        <th scope="col">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($refrigerante as $refrigerantes)
+                                    <tr>
+                                        <th><input type="checkbox" name="delmulti[]" value="{{ $refrigerantes->id }}"></th>
+                                        <td>{{ $refrigerantes->marca }}</td>
+                                        <td>{{ $refrigerantes->tipo }}</td>
+                                        <td>{{ $refrigerantes->sabor }}</td>
+                                        <td>{{ $refrigerantes->litragem }}</td>
+                                        <td>{{ $refrigerantes->valor }}</td>
+                                        <td>{{ $refrigerantes->quantidade }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-success edit" data-id="{{ $refrigerantes->id }}"
+                                                                                            data-marca="{{ $refrigerantes->marca }}"
+                                                                                            data-tipo="{{ $refrigerantes->tipo }}"
+                                                                                            data-sabor="{{ $refrigerantes->sabor }}"
+                                                                                            data-litragem="{{ $refrigerantes->litragem }}"
+                                                                                            data-valor="{{ $refrigerantes->valor }}"
+                                                                                            data-quantidade="{{ $refrigerantes->quantidade }}" data-toggle="modal" data-target="#editModal">
+                                                Editar
+                                            </button>
+                                            <button type="button" class="btn btn-danger delete" data-id="{{ $refrigerantes->id }}" data-toggle="modal" data-target="#deleteModal">
+                                                Deletar
+                                            </button>
+                                            
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table> 
+                        </div>
+                        <br>
+                        <div class="text-left">
+                            <div class="clo-md-12">
+                                <button type="submit" id="multdel" class="btn btn-danger">
+                                    Deletar Multiplos
+                                </button>
+                            </div>
+                        </div>   
+                    </form>               
+                    
 
                     </div>
                         

@@ -28,36 +28,18 @@ class RefrigeranteController extends Controller
     
     public function store(Request $request)
     {
-        /*Refrigerante::create([
+       
+        Refrigerante::create([
             'marca'=> $request->marca,
             'tipo'=>$request->tipo,
             'sabor'=>$request->sabor,
             'litragem'=>$request->litragem,
             'valor'=>$request->valor,
             'quantidade'=>$request->quantidade
-        ]);*/
-
-        $this->validate($request,[
-            'marca' => 'required',
-            'tipo' => 'required',
-            'sabor' => 'required',
-            'litragem' => 'required',
-            'valor' => 'required',
-            'quantidade' => 'required',
         ]);
-
-        $refrigerante = new Refrigerante;
-
-        $refrigerante->marca = $request->input('marca');
-        $refrigerante->tipo = $request->input('tipo');
-        $refrigerante->sabor = $request->input('sabor');
-        $refrigerante->litragem = $request->input('litragem');
-        $refrigerante->valor = $request->input('valor');
-        $refrigerante->quantidade = $request->input('quantidade');
-        
-        $refrigerante->save();
-
         return redirect('/refrigerante')->with('success', 'Dados Salvos');
+        
+        
     }
 
     
@@ -82,11 +64,10 @@ class RefrigeranteController extends Controller
     }
 
     
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //$refrigerante = Refrigerante::find($id);
-        //$refrigerante->delete();
-        //return redirect('/refrigerante')->with('success', 'Deletado com Sucesso!');
-        echo 'funcionando';
+        $refrigerante= Refrigerante::findOrFail($request->refrigerante_id);
+        $refrigerante->delete($request->all());
+        return redirect('/refrigerante')->with('success', 'Dados Atualizados');
     }
 }

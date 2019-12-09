@@ -92,13 +92,13 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="marca">Marca</label>
-                                            <input type="text" name="marca" class="form-control" placeholder="Marca">
+                                            <input type="text" name="marca" id="marca" class="form-control" placeholder="Marca">
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-4">
                                                     <label for="tipo">Tipo</label>
-                                                    <select name="tipo" class="form-control">
+                                                    <select name="tipo" id="tipo" class="form-control">
                                                         <option selected>Pet</option>
                                                         <option>Garrafa</option>
                                                         <option>Lata</option>
@@ -106,7 +106,7 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="sabor">Sabor</label>
-                                                    <select name="sabor" class="form-control">
+                                                    <select name="sabor" id="sabor" class="form-control">
                                                         <option selected>Cola</option>
                                                         <option>Laranja</option>
                                                         <option>Limao</option>
@@ -116,7 +116,7 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="litragem">Litragem</label>
-                                                    <select name="litragem" class="form-control">
+                                                    <select name="litragem" id="litragem" class="form-control">
                                                         <option selected>250mL</option>
                                                         <option>600mL</option>
                                                         <option>1L</option>
@@ -130,12 +130,12 @@
                                                     <label for="valor">Valor</label>
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="inputGroupPrepend2">R$</span>
-                                                        <input type="number" name="valor" class="form-control" placeholder="0,00">
+                                                        <input type="number" name="valor" id="valor" class="form-control" placeholder="0,00">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label for="quantidade">Quantidade</label>
-                                                    <input type="number" name="quantidade" class="form-control" placeholder="Quantidade">
+                                                    <input type="number" name="quantidade" id="quantidade" class="form-control" placeholder="Quantidade">
                                                 </div>
                                             </div>
                             
@@ -244,11 +244,11 @@
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form method="POST" action="{{ route('refrigerante.destroy','id') }}" id="deleteForm">
+                            <form method="POST" action="{{ route('refrigerante.destroy','test') }}" id="deleteForm">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                                 <div class="modal-body">
-                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="refrigerante_id" id="refrigeranteid">
                                     <p>Tem certeza que deseja deletar?</p>
                                 </div>
                                 <div class="modal-footer">
@@ -296,7 +296,7 @@
                                                                                        data-quantidade="{{ $refrigerantes->quantidade }}" data-toggle="modal" data-target="#editModal">
                                         Editar
                                     </button>
-                                    <button type="button" class="btn btn-danger delete" data-toggle="modal" data-target="#deleteModal">
+                                    <button type="button" class="btn btn-danger delete" data-id="{{ $refrigerantes->id }}" data-toggle="modal" data-target="#deleteModal">
                                         Deletar
                                     </button>
                                     
@@ -322,6 +322,30 @@
                             var table = $('#datatable').DataTable();
                         });
 
+                        //Função Cadastrar
+
+                        $('#cadastrarModal').on('show.bs.modal', function (event) {
+                            var button = $(event.relatedTarget);
+                            var id = button.data('id');
+                            var marca = button.data('marca');
+                            var tipo = button.data('tipo');
+                            var sabor = button.data('sabor');
+                            var litragem = button.data('litragem');
+                            var valor = button.data('valor');
+                            var quantidade = button.data('quantidade');
+
+                            var modal = $(this);
+                            modal.find('.modal-body #refrigeranteid').val(id);
+                            modal.find('.modal-body #marca').val(marca);
+                            modal.find('.modal-body #tipo').val(tipo);
+                            modal.find('.modal-body #sabor').val(sabor);
+                            modal.find('.modal-body #litragem').val(litragem);
+                            modal.find('.modal-body #valor').val(valor);
+                            modal.find('.modal-body #quantidade').val(quantidade);
+                        });
+
+                        //Função Editar
+
                         $('#editModal').on('show.bs.modal', function (event) {
                             var button = $(event.relatedTarget);
                             var id = button.data('id');
@@ -340,6 +364,16 @@
                             modal.find('.modal-body #litragem').val(litragem);
                             modal.find('.modal-body #valor').val(valor);
                             modal.find('.modal-body #quantidade').val(quantidade);
+                        });
+
+                        // Função Deletar
+
+                        $('#deleteModal').on('show.bs.modal', function (event) {
+                            var button = $(event.relatedTarget);
+                            var id = button.data('id');
+
+                            var modal = $(this);
+                            modal.find('.modal-body #refrigeranteid').val(id);
                         });
 
                     </script>

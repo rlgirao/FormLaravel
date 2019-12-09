@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Refrigerante;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $refrigerante = Refrigerante::all();
+        return view('refrigerante')->with('refrigerante', $refrigerante);
     }
 }

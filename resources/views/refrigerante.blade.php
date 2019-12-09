@@ -10,6 +10,19 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 
 
+    <style type="text/css">
+        td .btn{
+            width: 50%;
+        }
+        td{
+            text-align: center;
+        }
+        
+        th{
+            text-align: center;
+        }
+    </style>
+
     <title>Refrigerantes</title>
   </head>
   <body>

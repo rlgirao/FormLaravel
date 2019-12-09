@@ -40,17 +40,23 @@ class RefrigeranteController extends Controller
     
     public function store(Request $request)
     {
-       
-        Refrigerante::create([
-            'marca'=> $request->marca,
-            'tipo'=>$request->tipo,
-            'sabor'=>$request->sabor,
-            'litragem'=>$request->litragem,
-            'valor'=>$request->valor,
-            'quantidade'=>$request->quantidade
-        ]);
-        return redirect('/refrigerante')->with('success','Cadastrado com sucesso!');
+        $marca = Refrigerante::where('marca',$request->marca)->first();
+        $litragem = Refrigerante::where('litragem',$request->litragem)->first();
         
+        if($marca == null || $litragem == null){
+            Refrigerante::create([
+                'marca'=> $request->marca,
+                'tipo'=>$request->tipo,
+                'sabor'=>$request->sabor,
+                'litragem'=>$request->litragem,
+                'valor'=>$request->valor,
+                'quantidade'=>$request->quantidade
+            ]);
+            return redirect('/refrigerante')->with('success','Cadastrado com sucesso!');
+        }else{
+            return 'Produto cadastrado';
+        }
+
         
     }
 

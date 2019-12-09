@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Refrigerante;
+Use Alert;
 
 class RefrigeranteController extends Controller
 {
@@ -16,6 +17,17 @@ class RefrigeranteController extends Controller
     public function index()
     {
         $refrigerante = Refrigerante::all();
+
+        if(session('success_mesage')){
+            Alert::success('Refrigerante ', session('success_mesage'));
+        }
+        if(session('info_mesage')){
+            Alert::info('Ação', session('info_mesage'));
+        }
+        if(session('danger_mesage')){
+            Alert::danger('Refrigerante', session('danger_mesage'));
+        }
+
         return view('refrigerante')->with('refrigerante', $refrigerante);
     }
 
@@ -37,7 +49,7 @@ class RefrigeranteController extends Controller
             'valor'=>$request->valor,
             'quantidade'=>$request->quantidade
         ]);
-        return redirect('/refrigerante')->with('success', 'Dados Salvos');
+        return redirect('/refrigerante')->with('success','Cadastrado com sucesso!');
         
         
     }
@@ -59,7 +71,7 @@ class RefrigeranteController extends Controller
     {
         $refrigerante= Refrigerante::findOrFail($request->refrigerante_id);
         $refrigerante->update($request->all());
-        return redirect('/refrigerante')->with('success', 'Dados Atualizados');
+        return redirect('/refrigerante')->with('success','Dados atualizados!');
    
     }
 
@@ -68,6 +80,6 @@ class RefrigeranteController extends Controller
     {
         $refrigerante= Refrigerante::findOrFail($request->refrigerante_id);
         $refrigerante->delete($request->all());
-        return redirect('/refrigerante')->with('success', 'Dados Atualizados');
+        return redirect('/refrigerante')->with('Seccess','Dados deletados!');
     }
 }

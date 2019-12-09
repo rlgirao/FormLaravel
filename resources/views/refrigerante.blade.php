@@ -70,10 +70,13 @@
                 <div class="card-header">Refrigerantes</div>
                     <!-- Button trigger modal -->
                     <br>
-                    <div class="col-md-2">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadastrarModal">
-                            Novo
-                        </button>
+                    <div class=text-right>
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadastrarModal">
+                                Novo
+                            </button>
+                        </div>
+                    
                     </div>
 
                     <!-- Inicio Modal Cadastrar -->
@@ -92,35 +95,55 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="marca">Marca</label>
-                                            <input type="text" name="marca" id="marca" class="form-control" placeholder="Marca">
+                                            <input type="text" name="marca" id="marca" class="form-control @error('marca') is-invalid @enderror" required autocomplete="marca" placeholder="Marca">
+                                            @error('marca')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-4">
                                                     <label for="tipo">Tipo</label>
-                                                    <select name="tipo" id="tipo" class="form-control">
-                                                        <option selected>Pet</option>
+                                                    <select name="tipo" id="tipo" class="form-control @error('tipo') is-invalid @enderror" required autocomplete="tipo">
+                                                        <option>Pet</option>
                                                         <option>Garrafa</option>
                                                         <option>Lata</option>
                                                     </select>
+                                                    @error('tipo')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="sabor">Sabor</label>
-                                                    <select name="sabor" id="sabor" class="form-control">
-                                                        <option selected>Cola</option>
+                                                    <select name="sabor" id="sabor" class="form-control @error('sabor') is-invalid @enderror" required autocomplete="sabor">
+                                                        <option>Cola</option>
                                                         <option>Laranja</option>
                                                         <option>Limao</option>
                                                         <option>Uva</option>
                                                         <option>Guarana</option>
                                                     </select>
+                                                    @error('sabor')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="litragem">Litragem</label>
-                                                    <select name="litragem" id="litragem" class="form-control">
+                                                    <select name="litragem" id="litragem" class="form-control @error('litragem') is-invalid @enderror" required autocomplete="litragem">
                                                         <option selected>250mL</option>
                                                         <option>600mL</option>
                                                         <option>1L</option>
                                                     </select>
+                                                    @error('litragem')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -130,12 +153,22 @@
                                                     <label for="valor">Valor</label>
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="inputGroupPrepend2">R$</span>
-                                                        <input type="number" name="valor" id="valor" class="form-control" placeholder="0,00">
+                                                        <input type="text" name="valor" id="valor" class="form-control @error('valor') is-invalid @enderror" required autocomplete="valor" placeholder="0,00">
+                                                        @error('valor')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label for="quantidade">Quantidade</label>
-                                                    <input type="number" name="quantidade" id="quantidade" class="form-control" placeholder="Quantidade">
+                                                    <input type="number" name="quantidade" id="quantidade" class="form-control @error('quantidade') is-invalid @enderror" required autocomplete="quantidade" placeholder="Quantidade">
+                                                    @error('quantidade')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                             
@@ -171,35 +204,55 @@
                                     <div class="form-group">
                                         <input type="hidden" name="refrigerante_id" id="refrigeranteid">
                                         <label for="marca">Marca</label>
-                                        <input type="text" name="marca" class="form-control" id="marca" placeholder="Marca">
+                                        <input type="text" name="marca" class="form-control @error('marca') is-invalid @enderror" required autocomplete="marca" id="marca" placeholder="Marca">
+                                        @error('marca')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <label for="tipo">Tipo</label>
-                                                <select id="tipo" name="tipo" class="form-control">
-                                                    <option selected>Pet</option>
+                                                <select id="tipo" name="tipo" class="form-control @error('tipo') is-invalid @enderror" required autocomplete="tipo">
+                                                    <option>Pet</option>
                                                     <option>Garrafa</option>
                                                     <option>Lata</option>
                                                 </select>
+                                                @error('tipo')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="sabor">Sabor</label>
-                                                <select id="sabor" name="sabor" class="form-control">
-                                                    <option selected>Cola</option>
+                                                <select id="sabor" name="sabor" class="form-control @error('sabor') is-invalid @enderror" required autocomplete="sabor">
+                                                    <option>Cola</option>
                                                     <option>Laranja</option>
                                                     <option>Limao</option>
                                                     <option>Uva</option>
                                                     <option>Guarana</option>
                                                 </select>
+                                                @error('sabor')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="litragem">Litragem</label>
-                                                <select id="litragem" name="litragem" class="form-control">
-                                                    <option selected>250mL</option>
+                                                <select id="litragem" name="litragem" class="form-control @error('litragem') is-invalid @enderror" required autocomplete="litragem">
+                                                    <option>250mL</option>
                                                     <option>600mL</option>
                                                     <option>1L</option>
                                                 </select>
+                                                @error('litragem')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -209,12 +262,22 @@
                                                 <label for="valor">Valor</label>
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="inputGroupPrepend2">R$</span>
-                                                    <input type="number" name="valor" class="form-control" id="valor" placeholder="0,00">
+                                                    <input type="text" name="valor" class="form-control @error('valor') is-invalid @enderror" required autocomplete="valor" id="valor" placeholder="0,00">
+                                                    @error('valor')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="quantidade">Quantidade</label>
-                                                <input type="number" name="quantidade" class="form-control" id="quantidade" placeholder="Quantidade">
+                                                <input type="number" name="quantidade" class="form-control @error('quantidade') is-invalid @enderror" required autocomplete="quantidade" id="quantidade" placeholder="Quantidade">
+                                                @error('quantidade')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
                         
@@ -314,7 +377,6 @@
                     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
                     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
-
                     <script type="text/javascript">
 
                         $(document).ready(function(){
@@ -322,27 +384,7 @@
                             var table = $('#datatable').DataTable();
                         });
 
-                        //Função Cadastrar
-
-                        $('#cadastrarModal').on('show.bs.modal', function (event) {
-                            var button = $(event.relatedTarget);
-                            var id = button.data('id');
-                            var marca = button.data('marca');
-                            var tipo = button.data('tipo');
-                            var sabor = button.data('sabor');
-                            var litragem = button.data('litragem');
-                            var valor = button.data('valor');
-                            var quantidade = button.data('quantidade');
-
-                            var modal = $(this);
-                            modal.find('.modal-body #refrigeranteid').val(id);
-                            modal.find('.modal-body #marca').val(marca);
-                            modal.find('.modal-body #tipo').val(tipo);
-                            modal.find('.modal-body #sabor').val(sabor);
-                            modal.find('.modal-body #litragem').val(litragem);
-                            modal.find('.modal-body #valor').val(valor);
-                            modal.find('.modal-body #quantidade').val(quantidade);
-                        });
+                       
 
                         //Função Editar
 

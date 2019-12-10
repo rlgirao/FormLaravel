@@ -77,7 +77,7 @@ class RefrigeranteController extends Controller
     {
         $refrigerante= Refrigerante::findOrFail($request->refrigerante_id);
         $refrigerante->update($request->all());
-        return redirect('/refrigerante')->with('success','Dados atualizados!');
+        return redirect()->route('refrigerante.index')->with('atualizado','Refrigerante Atualizado com sucesso!');
    
     }
 
@@ -86,13 +86,13 @@ class RefrigeranteController extends Controller
     {
         $refrigerante= Refrigerante::findOrFail($request->refrigerante_id);
         $refrigerante->delete($request->all());
-        return redirect('/refrigerante')->with('Seccess','Dados deletados!');
+        return redirect()->route('refrigerante.index')->with('deletado','Refrigerante deletado com sucesso!');
     }
 
     public function delete(Request $request)
     {
         $refrigerante = $request->input('delmulti');
         Refrigerante::whereIn('id', $refrigerante)->delete();
-        return redirect('/refrigerante')->with('Seccess','Dados deletados!');
+        return redirect()->route('refrigerante.index')->with('deletado','Refrigerante deletado com sucesso!');
     }
 }

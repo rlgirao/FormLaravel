@@ -103,6 +103,28 @@
             </div>
         </div>
         @endif
+
+        @if(session('atualizado'))
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('atualizado') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        @endif
+
+        @if(session('deletado'))
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('deletado') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        @endif
             <div class="card">
                 <div class="card-header">Refrigerantes</div>
                     <!-- Button trigger modal -->
@@ -382,7 +404,7 @@
                                 <tbody>
                                     @foreach($refrigerante as $refrigerantes)
                                     <tr>
-                                        <th><input type="checkbox" name="delmulti[]" value="{{ $refrigerantes->id }}"></th>
+                                        <th><input type="checkbox" id="checkbox" name="delmulti[]" value="{{ $refrigerantes->id }}"></th>
                                         <td>{{ $refrigerantes->marca }}</td>
                                         <td>{{ $refrigerantes->tipo }}</td>
                                         <td>{{ $refrigerantes->sabor }}</td>
@@ -413,7 +435,7 @@
                         <br>
                         <div class="text-left">
                             <div class="clo-md-12">
-                                <button type="submit" id="multdel" class="btn btn-danger">
+                                <button type="submit" id="multdel" class="btn btn-danger" disabled="true">
                                     Deletar Multiplos
                                 </button>
                             </div>
@@ -481,6 +503,19 @@
                             v = v.replace(/(\d)(\d{3}),/g, "$1.$2,");
                             i.value = v;
                         }
+
+
+                        $(document).ready(function(){
+                            $("input[type=checkbox]").change(function(){
+                                var minAtd = 1;
+                                var cont = $("input[type=checkbox]:checked").length;
+                                if(cont < minAtd){
+                                    $("#multdel").attr("disabled", true);
+                                }else {
+                                    $("#multdel").attr("disabled", false);
+                                }
+                            })
+                        })
 
                     </script>
                     </div>

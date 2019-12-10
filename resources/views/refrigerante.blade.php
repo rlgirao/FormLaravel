@@ -8,12 +8,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
 
     <style type="text/css">
-        td .btn{
-            width: 50%;
-        }
         td{
             text-align: center;
         }
@@ -222,7 +219,7 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label for="quantidade">Quantidade</label>
-                                                    <input type="number" min="1" name="quantidade" id="quantidade" class="form-control @error('quantidade') is-invalid @enderror" required autocomplete="quantidade" placeholder="Quantidade">
+                                                    <input type="number" min="0" name="quantidade" id="quantidade" class="form-control @error('quantidade') is-invalid @enderror" required autocomplete="quantidade" placeholder="Quantidade">
                                                     @error('quantidade')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -331,7 +328,7 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="quantidade">Quantidade</label>
-                                                <input type="number" min="1" name="quantidade" class="form-control @error('quantidade') is-invalid @enderror" required autocomplete="quantidade" id="quantidade" placeholder="Quantidade">
+                                                <input type="number" min="0" name="quantidade" class="form-control @error('quantidade') is-invalid @enderror" required autocomplete="quantidade" id="quantidade" placeholder="Quantidade">
                                                 @error('quantidade')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -412,17 +409,17 @@
                                         <td>{{ $refrigerantes->valor }}</td>
                                         <td>{{ $refrigerantes->quantidade }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-success edit" data-id="{{ $refrigerantes->id }}"
+                                            <button type="button" class="btn btn-primary edit" data-id="{{ $refrigerantes->id }}"
                                                                                             data-marca="{{ $refrigerantes->marca }}"
                                                                                             data-tipo="{{ $refrigerantes->tipo }}"
                                                                                             data-sabor="{{ $refrigerantes->sabor }}"
                                                                                             data-litragem="{{ $refrigerantes->litragem }}"
                                                                                             data-valor="{{ $refrigerantes->valor }}"
                                                                                             data-quantidade="{{ $refrigerantes->quantidade }}" data-toggle="modal" data-target="#editModal">
-                                                Editar
+                                                E
                                             </button>
                                             <button type="button" class="btn btn-danger delete" data-id="{{ $refrigerantes->id }}" data-toggle="modal" data-target="#deleteModal">
-                                                Deletar
+                                                D
                                             </button>
                                             
                                         </td>
@@ -504,6 +501,7 @@
                             i.value = v;
                         }
 
+                        // Função para habilitar ou desabilitar button de apagar mais de 1 registro
 
                         $(document).ready(function(){
                             $("input[type=checkbox]").change(function(){

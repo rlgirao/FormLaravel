@@ -17,17 +17,6 @@ class RefrigeranteController extends Controller
     public function index()
     {
         $refrigerante = Refrigerante::all();
-
-        if(session('success_mesage')){
-            Alert::success('Refrigerante ', session('success_mesage'));
-        }
-        if(session('info_mesage')){
-            Alert::info('Ação', session('info_mesage'));
-        }
-        if(session('danger_mesage')){
-            Alert::danger('Refrigerante', session('danger_mesage'));
-        }
-
         return view('refrigerante')->with('refrigerante', $refrigerante);
     }
 

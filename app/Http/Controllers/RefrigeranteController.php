@@ -52,9 +52,9 @@ class RefrigeranteController extends Controller
                 'valor'=>$request->valor,
                 'quantidade'=>$request->quantidade
             ]);
-            return redirect('/refrigerante')->with('success','Cadastrado com sucesso!');
+            return redirect()->route('refrigerante.index')->with('salvo','Refrigerante cadastrado com sucesso!');
         }else{
-            return 'Produto cadastrado';
+            return redirect()->route('refrigerante.index')->with('cadastrado','Refrigerante já cadastrado!');
         }
 
         

@@ -76,9 +76,33 @@
         </nav>
     </div>
     <br>
+
+    
+
  <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
+        @if(session('salvo'))
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('salvo') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        @endif
+
+        @if(session('cadastrado'))
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('cadastrado') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        @endif
             <div class="card">
                 <div class="card-header">Refrigerantes</div>
                     <!-- Button trigger modal -->
@@ -166,7 +190,7 @@
                                                     <label for="valor">Valor</label>
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="inputGroupPrepend2">R$</span>
-                                                        <input type="text" name="valor" id="valor" class="form-control @error('valor') is-invalid @enderror" required autocomplete="valor" placeholder="0,00">
+                                                        <input type="text" name="valor" onkeyup="maskDinheiro(this);" id="valor" class="form-control @error('valor') is-invalid @enderror" required autocomplete="valor" placeholder="0,00">
                                                         @error('valor')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -176,7 +200,7 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label for="quantidade">Quantidade</label>
-                                                    <input type="number" name="quantidade" id="quantidade" class="form-control @error('quantidade') is-invalid @enderror" required autocomplete="quantidade" placeholder="Quantidade">
+                                                    <input type="number" min="1" name="quantidade" id="quantidade" class="form-control @error('quantidade') is-invalid @enderror" required autocomplete="quantidade" placeholder="Quantidade">
                                                     @error('quantidade')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -275,7 +299,7 @@
                                                 <label for="valor">Valor</label>
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="inputGroupPrepend2">R$</span>
-                                                    <input type="text" name="valor" class="form-control @error('valor') is-invalid @enderror" required autocomplete="valor" id="valor" placeholder="0,00">
+                                                    <input type="text" name="valor" onkeyup="maskDinheiro(this);" class="form-control @error('valor') is-invalid @enderror" required autocomplete="valor" id="valor" placeholder="0,00">
                                                     @error('valor')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -285,7 +309,7 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="quantidade">Quantidade</label>
-                                                <input type="number" name="quantidade" class="form-control @error('quantidade') is-invalid @enderror" required autocomplete="quantidade" id="quantidade" placeholder="Quantidade">
+                                                <input type="number" min="1" name="quantidade" class="form-control @error('quantidade') is-invalid @enderror" required autocomplete="quantidade" id="quantidade" placeholder="Quantidade">
                                                 @error('quantidade')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -384,6 +408,7 @@
                                     @endforeach
                                 </tbody>
                             </table> 
+                            
                         </div>
                         <br>
                         <div class="text-left">
@@ -392,7 +417,8 @@
                                     Deletar Multiplos
                                 </button>
                             </div>
-                        </div>   
+                        </div> 
+                        <br>  
                     </form>               
                     
 
@@ -444,6 +470,17 @@
                             var modal = $(this);
                             modal.find('.modal-body #refrigeranteid').val(id);
                         });
+
+                        // Função para dinheiro
+
+                        function maskDinheiro(i) {
+                            var v = i.value.replace(/\D/g,'');
+                            v = (v/100).toFixed(2) + '';
+                            v = v.replace(".", ",");
+                            v = v.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
+                            v = v.replace(/(\d)(\d{3}),/g, "$1.$2,");
+                            i.value = v;
+                        }
 
                     </script>
                     </div>

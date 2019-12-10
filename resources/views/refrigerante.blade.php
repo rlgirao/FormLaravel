@@ -8,7 +8,17 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
 
+    <style type="text/css">
+        td{
+            text-align: center;
+        }
+        
+        th{
+            text-align: center;
+        }
+    </style>
 
     <title>Refrigerantes</title>
   </head>
@@ -63,17 +73,66 @@
         </nav>
     </div>
     <br>
+
+    
+
  <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
+        @if(session('salvo'))
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('salvo') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        @endif
+
+        @if(session('cadastrado'))
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('cadastrado') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        @endif
+
+        @if(session('atualizado'))
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('atualizado') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        @endif
+
+        @if(session('deletado'))
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('deletado') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        @endif
             <div class="card">
                 <div class="card-header">Refrigerantes</div>
                     <!-- Button trigger modal -->
                     <br>
-                    <div class="col-md-2">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadastrarModal">
-                            Novo
-                        </button>
+                    <div class=text-right>
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cadastrarModal">
+                                Novo
+                            </button>
+                        </div>
+                    
                     </div>
 
                     <!-- Inicio Modal Cadastrar -->
@@ -92,35 +151,55 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="marca">Marca</label>
-                                            <input type="text" name="marca" id="marca" class="form-control" placeholder="Marca">
+                                            <input type="text" name="marca" id="marca" class="form-control @error('marca') is-invalid @enderror" required autocomplete="marca" placeholder="Marca">
+                                            @error('marca')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-4">
                                                     <label for="tipo">Tipo</label>
-                                                    <select name="tipo" id="tipo" class="form-control">
-                                                        <option selected>Pet</option>
+                                                    <select name="tipo" id="tipo" class="form-control @error('tipo') is-invalid @enderror" required autocomplete="tipo">
+                                                        <option>Pet</option>
                                                         <option>Garrafa</option>
                                                         <option>Lata</option>
                                                     </select>
+                                                    @error('tipo')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="sabor">Sabor</label>
-                                                    <select name="sabor" id="sabor" class="form-control">
-                                                        <option selected>Cola</option>
+                                                    <select name="sabor" id="sabor" class="form-control @error('sabor') is-invalid @enderror" required autocomplete="sabor">
+                                                        <option>Cola</option>
                                                         <option>Laranja</option>
                                                         <option>Limao</option>
                                                         <option>Uva</option>
                                                         <option>Guarana</option>
                                                     </select>
+                                                    @error('sabor')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="litragem">Litragem</label>
-                                                    <select name="litragem" id="litragem" class="form-control">
+                                                    <select name="litragem" id="litragem" class="form-control @error('litragem') is-invalid @enderror" required autocomplete="litragem">
                                                         <option selected>250mL</option>
                                                         <option>600mL</option>
                                                         <option>1L</option>
                                                     </select>
+                                                    @error('litragem')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -130,12 +209,22 @@
                                                     <label for="valor">Valor</label>
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="inputGroupPrepend2">R$</span>
-                                                        <input type="number" name="valor" id="valor" class="form-control" placeholder="0,00">
+                                                        <input type="text" name="valor" onkeyup="maskDinheiro(this);" id="valor" class="form-control @error('valor') is-invalid @enderror" required autocomplete="valor" placeholder="0,00">
+                                                        @error('valor')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label for="quantidade">Quantidade</label>
-                                                    <input type="number" name="quantidade" id="quantidade" class="form-control" placeholder="Quantidade">
+                                                    <input type="number" min="0" name="quantidade" id="quantidade" class="form-control @error('quantidade') is-invalid @enderror" required autocomplete="quantidade" placeholder="Quantidade">
+                                                    @error('quantidade')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                             
@@ -171,35 +260,55 @@
                                     <div class="form-group">
                                         <input type="hidden" name="refrigerante_id" id="refrigeranteid">
                                         <label for="marca">Marca</label>
-                                        <input type="text" name="marca" class="form-control" id="marca" placeholder="Marca">
+                                        <input type="text" name="marca" class="form-control @error('marca') is-invalid @enderror" required autocomplete="marca" id="marca" placeholder="Marca">
+                                        @error('marca')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <label for="tipo">Tipo</label>
-                                                <select id="tipo" name="tipo" class="form-control">
-                                                    <option selected>Pet</option>
+                                                <select id="tipo" name="tipo" class="form-control @error('tipo') is-invalid @enderror" required autocomplete="tipo">
+                                                    <option>Pet</option>
                                                     <option>Garrafa</option>
                                                     <option>Lata</option>
                                                 </select>
+                                                @error('tipo')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="sabor">Sabor</label>
-                                                <select id="sabor" name="sabor" class="form-control">
-                                                    <option selected>Cola</option>
+                                                <select id="sabor" name="sabor" class="form-control @error('sabor') is-invalid @enderror" required autocomplete="sabor">
+                                                    <option>Cola</option>
                                                     <option>Laranja</option>
                                                     <option>Limao</option>
                                                     <option>Uva</option>
                                                     <option>Guarana</option>
                                                 </select>
+                                                @error('sabor')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                             <div class="col-sm-4">
                                                 <label for="litragem">Litragem</label>
-                                                <select id="litragem" name="litragem" class="form-control">
-                                                    <option selected>250mL</option>
+                                                <select id="litragem" name="litragem" class="form-control @error('litragem') is-invalid @enderror" required autocomplete="litragem">
+                                                    <option>250mL</option>
                                                     <option>600mL</option>
                                                     <option>1L</option>
                                                 </select>
+                                                @error('litragem')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -209,12 +318,22 @@
                                                 <label for="valor">Valor</label>
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="inputGroupPrepend2">R$</span>
-                                                    <input type="number" name="valor" class="form-control" id="valor" placeholder="0,00">
+                                                    <input type="text" name="valor" onkeyup="maskDinheiro(this);" class="form-control @error('valor') is-invalid @enderror" required autocomplete="valor" id="valor" placeholder="0,00">
+                                                    @error('valor')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="quantidade">Quantidade</label>
-                                                <input type="number" name="quantidade" class="form-control" id="quantidade" placeholder="Quantidade">
+                                                <input type="number" min="0" name="quantidade" class="form-control @error('quantidade') is-invalid @enderror" required autocomplete="quantidade" id="quantidade" placeholder="Quantidade">
+                                                @error('quantidade')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
                         
@@ -262,49 +381,65 @@
                     </div>
                     <!-- Fim do Modal Deletar -->
 
-                    <br>               
-                    <table id="datatable" class="table ">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Marca</th>
-                                <th scope="col">Tipo</th>
-                                <th scope="col">Sabor</th>
-                                <th scope="col">Litragem</th>
-                                <th scope="col">Valor</th>
-                                <th scope="col">Quantidade</th>
-                                <th scope="col">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($refrigerante as $refrigerantes)
-                            <tr>
-                                <th>{{ $refrigerantes->id }}</th>
-                                <td>{{ $refrigerantes->marca }}</td>
-                                <td>{{ $refrigerantes->tipo }}</td>
-                                <td>{{ $refrigerantes->sabor }}</td>
-                                <td>{{ $refrigerantes->litragem }}</td>
-                                <td>{{ $refrigerantes->valor }}</td>
-                                <td>{{ $refrigerantes->quantidade }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-success edit" data-id="{{ $refrigerantes->id }}"
-                                                                                       data-marca="{{ $refrigerantes->marca }}"
-                                                                                       data-tipo="{{ $refrigerantes->tipo }}"
-                                                                                       data-sabor="{{ $refrigerantes->sabor }}"
-                                                                                       data-litragem="{{ $refrigerantes->litragem }}"
-                                                                                       data-valor="{{ $refrigerantes->valor }}"
-                                                                                       data-quantidade="{{ $refrigerantes->quantidade }}" data-toggle="modal" data-target="#editModal">
-                                        Editar
-                                    </button>
-                                    <button type="button" class="btn btn-danger delete" data-id="{{ $refrigerantes->id }}" data-toggle="modal" data-target="#deleteModal">
-                                        Deletar
-                                    </button>
-                                    
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                        </table>    
+                    <br>
+                    <form action="{{ route('refrigerante.delete') }}" method="POST">
+                        {{ csrf_field() }}
+                        <div class="table-responsive">
+                            <table id="datatable" class="table ">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">Marca</th>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Sabor</th>
+                                        <th scope="col">Litragem</th>
+                                        <th scope="col">Valor</th>
+                                        <th scope="col">Quantidade</th>
+                                        <th scope="col">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($refrigerante as $refrigerantes)
+                                    <tr>
+                                        <th><input type="checkbox" id="checkbox" name="delmulti[]" value="{{ $refrigerantes->id }}"></th>
+                                        <td>{{ $refrigerantes->marca }}</td>
+                                        <td>{{ $refrigerantes->tipo }}</td>
+                                        <td>{{ $refrigerantes->sabor }}</td>
+                                        <td>{{ $refrigerantes->litragem }}</td>
+                                        <td>{{ $refrigerantes->valor }}</td>
+                                        <td>{{ $refrigerantes->quantidade }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary edit" data-id="{{ $refrigerantes->id }}"
+                                                                                            data-marca="{{ $refrigerantes->marca }}"
+                                                                                            data-tipo="{{ $refrigerantes->tipo }}"
+                                                                                            data-sabor="{{ $refrigerantes->sabor }}"
+                                                                                            data-litragem="{{ $refrigerantes->litragem }}"
+                                                                                            data-valor="{{ $refrigerantes->valor }}"
+                                                                                            data-quantidade="{{ $refrigerantes->quantidade }}" data-toggle="modal" data-target="#editModal">
+                                                E
+                                            </button>
+                                            <button type="button" class="btn btn-danger delete" data-id="{{ $refrigerantes->id }}" data-toggle="modal" data-target="#deleteModal">
+                                                D
+                                            </button>
+                                            
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table> 
+                            
+                        </div>
+                        <br>
+                        <div class="text-left">
+                            <div class="clo-md-12">
+                                <button type="submit" id="multdel" class="btn btn-danger" disabled="true">
+                                    Deletar Multiplos
+                                </button>
+                            </div>
+                        </div> 
+                        <br>  
+                    </form>               
+                    
 
                     </div>
                         
@@ -314,7 +449,6 @@
                     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
                     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
-
                     <script type="text/javascript">
 
                         $(document).ready(function(){
@@ -322,27 +456,7 @@
                             var table = $('#datatable').DataTable();
                         });
 
-                        //Função Cadastrar
-
-                        $('#cadastrarModal').on('show.bs.modal', function (event) {
-                            var button = $(event.relatedTarget);
-                            var id = button.data('id');
-                            var marca = button.data('marca');
-                            var tipo = button.data('tipo');
-                            var sabor = button.data('sabor');
-                            var litragem = button.data('litragem');
-                            var valor = button.data('valor');
-                            var quantidade = button.data('quantidade');
-
-                            var modal = $(this);
-                            modal.find('.modal-body #refrigeranteid').val(id);
-                            modal.find('.modal-body #marca').val(marca);
-                            modal.find('.modal-body #tipo').val(tipo);
-                            modal.find('.modal-body #sabor').val(sabor);
-                            modal.find('.modal-body #litragem').val(litragem);
-                            modal.find('.modal-body #valor').val(valor);
-                            modal.find('.modal-body #quantidade').val(quantidade);
-                        });
+                       
 
                         //Função Editar
 
@@ -375,6 +489,31 @@
                             var modal = $(this);
                             modal.find('.modal-body #refrigeranteid').val(id);
                         });
+
+                        // Função para dinheiro
+
+                        function maskDinheiro(i) {
+                            var v = i.value.replace(/\D/g,'');
+                            v = (v/100).toFixed(2) + '';
+                            v = v.replace(".", ",");
+                            v = v.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
+                            v = v.replace(/(\d)(\d{3}),/g, "$1.$2,");
+                            i.value = v;
+                        }
+
+                        // Função para habilitar ou desabilitar button de apagar mais de 1 registro
+
+                        $(document).ready(function(){
+                            $("input[type=checkbox]").change(function(){
+                                var minAtd = 1;
+                                var cont = $("input[type=checkbox]:checked").length;
+                                if(cont < minAtd){
+                                    $("#multdel").attr("disabled", true);
+                                }else {
+                                    $("#multdel").attr("disabled", false);
+                                }
+                            })
+                        })
 
                     </script>
                     </div>

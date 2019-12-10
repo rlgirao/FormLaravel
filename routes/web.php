@@ -19,4 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::post('/refrigerante/delete','RefrigeranteController@delete')->name('refrigerante.delete');
+
 Route::resource('/refrigerante', 'RefrigeranteController');

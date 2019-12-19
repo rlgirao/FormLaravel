@@ -453,7 +453,24 @@
 
                         $(document).ready(function(){
 
-                            var table = $('#datatable').DataTable();
+                            var table = $('#datatable').DataTable({
+                                "oLanguage":{
+                                    "sProcessing": "Processando...",
+                                    "sLengthMenu": "Mostrar _MENU_ registros por página",
+                                    "sZeroRecords": "Nada encontrado!",
+                                    "sLoadingRecords": "Carregando...",
+                                    "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                                    "sSearch": "Pesquisar:",
+                                    "sUrl": "",
+                                        "oPaginate":{
+                                            "sFirst":"Primeira",
+                                            "sPrevious": "Anterior",
+                                            "sNext": "Proxima",
+                                            "sLast": "Ultima",
+                                        }
+                                }
+                            });
                         });
 
                        

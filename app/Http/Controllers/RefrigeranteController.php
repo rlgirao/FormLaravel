@@ -65,15 +65,15 @@ class RefrigeranteController extends Controller
     public function update(Request $request)
     {
         $refrigerante= Refrigerante::findOrFail($request->refrigerante_id);
-        $marca = Refrigerante::where('marca',$request->marca)->first();
-        $litragem = Refrigerante::where('litragem',$request->litragem)->first();
+        //$marca = Refrigerante::where('marca',$request->marca)->first();
+        //$litragem = Refrigerante::where('litragem',$request->litragem)->first();
         
-        if($marca == null || $litragem == null){
+        //if($marca == null || $litragem == null){
             $refrigerante->update($request->all());
             return redirect()->route('refrigerante.index')->with('atualizado','Refrigerante Atualizado com sucesso!');
-        }else{
-            return redirect()->route('refrigerante.index')->with('cadastrado','Refrigerante já cadastrado!');
-        }
+        //}else{
+        //    return redirect()->route('refrigerante.index')->with('cadastrado','Refrigerante já cadastrado!');
+        //}
         
    
     }
